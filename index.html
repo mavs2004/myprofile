@@ -36,6 +36,7 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+            margin-top: 10px;
             padding: 0 1.5rem;
         }
 
@@ -64,12 +65,42 @@
             color: #00aaff;
         }
 
+        /* Mobile Menu Styles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
         section {
             padding: clamp(3rem, 10vw, 5rem) 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
             margin-top: 70px;
-            
         }
 
         #home {
@@ -165,24 +196,22 @@
             font-family: 'Times New Roman', Times, serif;
         }
         .highlight {
-    color: #00aaff; /* Base blue color */
-    text-shadow: 
-        0 0 5px #00aaff,
-        0 0 10px #00aaff,
-       
-        
-        0 0 30px #00aaff; /* Multiple layers for glow effect */
-    transition: text-shadow 0.3s ease; /* Smooth transition for hover effect */
-}
+            color: #00aaff; /* Base blue color */
+            text-shadow: 
+                0 0 5px #00aaff,
+                0 0 10px #00aaff,
+                0 0 30px #00aaff; /* Multiple layers for glow effect */
+            transition: text-shadow 0.3s ease; /* Smooth transition for hover effect */
+        }
 
-.highlight:hover {
-    text-shadow: 
-        0 0 5px #00aaff,
-        0 0 10px #00aaff,
-        0 0 20px #00aaff,
-        0 0 30px #00aaff,
-        0 0 40px #00ffcc; /* Enhanced glow on hover with a slight greenish tint */
-}
+        .highlight:hover {
+            text-shadow: 
+                0 0 5px #00aaff,
+                0 0 10px #00aaff,
+                0 0 20px #00aaff,
+                0 0 30px #00aaff,
+                0 0 40px #00ffcc; /* Enhanced glow on hover with a slight greenish tint */
+        }
 
         #about, #projects, #blog, #contact {
             background: #141414;
@@ -303,33 +332,61 @@
             font-size: clamp(0.8rem, 3vw, 0.9rem);
         }
 
+        /* Responsive Styles */
         @media (max-width: 768px) {
             nav {
-                flex-direction: column;
-                gap: 1rem;
                 padding: 1rem;
             }
 
+            .menu-toggle {
+                display: flex;
+            }
+
             nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: #1a1a1a;
                 flex-direction: column;
                 align-items: center;
-                gap: 0.5rem;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                gap: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            nav ul.active {
+                left: 0;
             }
 
             nav ul li {
-                margin-left: 0;
+                width: 100%;
+                text-align: center;
             }
 
-            #home .laptop {
-                width: clamp(150px, 40vw, 300px);
-            }
-
-            #home::before {
-                background-size: 150%;
+            nav ul li a {
+                font-size: 1.2rem;
+                padding: 1rem;
+                display: block;
             }
 
             #home .content {
-                padding: 1.5rem;
+                width: 90%;
+                padding: 0 1rem;
+            }
+
+            #home h1 {
+                font-size: clamp(1.8rem, 7vw, 2.5rem);
+            }
+
+            #home p {
+                font-size: clamp(0.9rem, 4vw, 1.1rem);
+            }
+
+            #home::before {
+                background-size: cover;
             }
 
             .project-grid {
@@ -349,6 +406,15 @@
             section {
                 padding: 2rem 1rem;
             }
+
+            #about, #projects, #blog, #contact {
+                padding: 1.5rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
@@ -356,6 +422,11 @@
     <header>
         <nav>
             <div class="logo">Carlos Mavean</div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -367,7 +438,6 @@
     </header>
 
     <section id="home">
-        
         <div class="content">
             <h1>Hi, I'm <span class="highlight">Carlos Mavean</span></h1>
             <p>Computer Engineering Student & Aspiring Web Developer</p>
@@ -407,10 +477,10 @@
                 <img src="https://img.icons8.com/ios-filled/50/ffffff/github.png" alt="GitHub Logo"> GitHub
             </a>
             <a href="https://linkedin.com/in/carlosmavean" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn Logo"> LinkedIn
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="LinkedIn Logo"> Instagram
             </a>
             <a href="https://twitter.com/carlosmavean" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter Logo"> Twitter
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Twitter Logo"> Facebook
             </a>
         </div>
     </section>
@@ -421,7 +491,7 @@
 
     <script>
         const projects = [
-             {
+            {
                 title: "Bicol Tourism",
                 description: "A responsive full details about Bicol, most rated tourist spot and guide for future visitors on Bicol .",
                 link: "#",
@@ -471,6 +541,25 @@
                 <a href="${project.link}" target="_blank">View Project</a>
             `;
             projectGrid.appendChild(projectCard);
+        });
+
+        // Mobile menu toggle functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('nav ul');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>
