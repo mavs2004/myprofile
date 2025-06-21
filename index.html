@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlos Mavean - Web Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #1a1a1a;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        nav .logo {
+            font-size: clamp(1.5rem, 5vw, 1.8rem);
+            font-weight: 600;
+            color: #00aaff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #00aaff;
+        }
+
+        section {
+            padding: clamp(3rem, 10vw, 5rem) 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 70px;
+            
+        }
+
+        #home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            text-align: center;
+            background: #000000;
+            overflow: hidden;
+            animation: compress 1.5s ease-out forwards;
+        }
+
+        @keyframes compress {
+            0% {
+                transform: scale(2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #home .laptop {
+            position: relative;
+            z-index: 1;
+            width: clamp(200px, 40vw, 400px);
+            height: auto;
+            opacity: 0;
+            animation: fadeInLaptop 1s ease-in 1.5s forwards;
+        }
+
+        @keyframes fadeInLaptop {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        #home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://via.placeholder.com/1920x1080?text=Matrix+Code') no-repeat center center;
+            background-size: cover;
+            opacity: 0.3;
+            z-index: -1;
+            animation: matrix 15s linear infinite;
+        }
+
+        @keyframes matrix {
+            0% { background-position: center 0; }
+            100% { background-position: center -1000px; }
+        }
+
+        #home .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInText 1s ease-in 1.5s forwards;
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translate(-50%, -40%); }
+            100% { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        #home h1 {
+            font-size: clamp(2rem, 8vw, 3rem);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #home p {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            color: #cccccc;
+            font-family: 'Roboto Mono', monospace;
+        }
+        span{
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #home .highlight {
+            color: #00aaff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .highlight {
+    color: #00aaff; /* Base blue color */
+    text-shadow: 
+        0 0 5px #00aaff,
+        0 0 10px #00aaff,
+       
+        
+        0 0 30px #00aaff; /* Multiple layers for glow effect */
+    transition: text-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.highlight:hover {
+    text-shadow: 
+        0 0 5px #00aaff,
+        0 0 10px #00aaff,
+        0 0 20px #00aaff,
+        0 0 30px #00aaff,
+        0 0 40px #00ffcc; /* Enhanced glow on hover with a slight greenish tint */
+}
+
+        #about, #projects, #blog, #contact {
+            background: #141414;
+            border-radius: 10px;
+            padding: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 6vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            color: #00aaff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        #about p {
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            color: #cccccc;
+            margin-bottom: 1rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: clamp(150px, 30vw, 200px);
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .project-card h3 {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: #cccccc;
+            margin-bottom: 1rem;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+        }
+
+        .project-card a {
+            color: #00aaff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .project-card a:hover {
+            text-decoration: underline;
+        }
+
+        .blog-post {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post h3 {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post p {
+            color: #cccccc;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+        }
+
+        #contact .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        #contact .social-links a {
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            transition: color 0.3s;
+        }
+
+        #contact .social-links a:hover {
+            color: #00aaff;
+        }
+
+        #contact .social-links img {
+            width: clamp(20px, 5vw, 24px);
+            height: clamp(20px, 5vw, 24px);
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #1a1a1a;
+            color: #cccccc;
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            nav ul li {
+                margin-left: 0;
+            }
+
+            #home .laptop {
+                width: clamp(150px, 40vw, 300px);
+            }
+
+            #home::before {
+                background-size: 150%;
+            }
+
+            #home .content {
+                padding: 1.5rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #home h1 {
+                font-size: clamp(1.5rem, 6vw, 2rem);
+            }
+
+            #home p {
+                font-size: clamp(0.8rem, 3.5vw, 1rem);
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Carlos Mavean</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        
+        <div class="content">
+            <h1>Hi, I'm <span class="highlight">Carlos Mavean</span></h1>
+            <p>Computer Engineering Student & Aspiring Web Developer</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I'm Carlos Mavean, a passionate Computer Engineering student with a strong interest in web development. My academic journey has equipped me with skills in programming, problem-solving, and designing user-friendly applications. I specialize in creating modern, responsive websites using HTML, CSS, and JavaScript, with a focus on delivering seamless user experiences.</p>
+        <p>My goal is to build innovative web solutions that combine functionality with aesthetic appeal. When I'm not coding, I enjoy exploring new technologies, contributing to open-source projects, and sharing my learning journey through my blog.</p>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-grid" id="project-grid">
+            <!-- Projects will be dynamically added here -->
+        </div>
+    </section>
+
+    <section id="blog">
+        <h2>Blog</h2>
+        <div class="blog-post">
+            <h3>My Journey in Web Development</h3>
+            <p>As a Computer Engineering student, I started exploring web development during my second year. From building simple HTML pages to creating dynamic applications with JavaScript, my journey has been both challenging and rewarding. Stay tuned for more insights on my learning process!</p>
+        </div>
+        <div class="blog-post">
+            <h3>Why I Love Responsive Design</h3>
+            <p>Creating websites that work seamlessly across devices is a game-changer. In this post, I share my approach to building responsive layouts using CSS Grid and Flexbox, along with tips for optimizing performance.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Feel free to reach out to me for collaboration or inquiries!</p>
+        <div class="social-links">
+            <a href="https://github.com/carlosmavean" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/github.png" alt="GitHub Logo"> GitHub
+            </a>
+            <a href="https://linkedin.com/in/carlosmavean" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn Logo"> LinkedIn
+            </a>
+            <a href="https://twitter.com/carlosmavean" target="_blank">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter Logo"> Twitter
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Carlos Mavean. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const projects = [
+             {
+                title: "Bicol Tourism",
+                description: "A responsive full details about Bicol, most rated tourist spot and guide for future visitors on Bicol .",
+                link: "#",
+                image: "image/bics.png"
+            },
+            {
+                title: "Online Shopping Platform",
+                description: "Responsive Online Shopping Platform with admin access and user friendly website.",
+                link: "#",
+                image: "image/shop.png"
+            },
+            {
+                title: "Hotel Booking and Hotel Landing Page",
+                description: "A responsive website that users can easily book a room to hotel with access on admin and with widget chat bot.",
+                link: "#",
+                image: "image/hotel.png"
+            },
+            {
+                title: "Gym Website",
+                description: "A personal gym website for gym business owners and a landing page for clients who wants to enroll for a membership can easily enroll using this website with admin access for the owners.",
+                link: "https://gymniarmando.wuaze.com",
+                image: "image/gym.png"
+            },
+            {
+                title: "Barangay Website",
+                description: "This project is propossed to Barangay Bagbag at Quezon City, a responsive and mobile friendly with access to admin when it comes to payments and printing certificates.",
+                link: "https://barangaybagbag.wuaze.com",
+                image: "image/brgy.png"
+            },
+            {
+                title: "Computer Hardware Inventory",
+                description: "A PHP website, webapp that can store computer hardware parts with responsive design and accurate sales graph.",
+                link: "#",
+                image: "image/qwe.png"
+            }
+        ];
+
+        const projectGrid = document.getElementById('project-grid');
+
+        projects.forEach(project => {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card';
+            projectCard.innerHTML = `
+                <img src="${project.image}" alt="${project.title} Image">
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+                <a href="${project.link}" target="_blank">View Project</a>
+            `;
+            projectGrid.appendChild(projectCard);
+        });
+    </script>
+</body>
+</html>
