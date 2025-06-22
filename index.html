@@ -126,39 +126,6 @@
             }
         }
 
-        #home .laptop {
-            position: relative;
-            z-index: 1;
-            width: clamp(200px, 40vw, 400px);
-            height: auto;
-            opacity: 0;
-            animation: fadeInLaptop 1s ease-in 1.5s forwards;
-        }
-
-        @keyframes fadeInLaptop {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        #home::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://via.placeholder.com/1920x1080?text=Matrix+Code') no-repeat center center;
-            background-size: cover;
-            opacity: 0.3;
-            z-index: -1;
-            animation: matrix 15s linear infinite;
-        }
-
-        @keyframes matrix {
-            0% { background-position: center 0; }
-            100% { background-position: center -1000px; }
-        }
-
         #home .content {
             position: absolute;
             top: 50%;
@@ -214,6 +181,103 @@
                 0 0 40px #00ffcc;
         }
 
+        /* Hacking Animation Background */
+        #home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 1;
+        }
+
+        #home .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.2;
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 16px;
+            color: #00ff41;
+            line-height: 1.5;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .matrix-column {
+            display: flex;
+            flex-direction: column;
+            animation: matrix-fall 8s linear infinite;
+            animation-delay: calc(var(--delay) * 1s);
+        }
+
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .matrix-char {
+            opacity: 0;
+            animation: matrix-flicker 0.1s linear infinite alternate;
+            animation-delay: calc(var(--char-delay) * 0.1s);
+        }
+
+        @keyframes matrix-flicker {
+            0% {
+                opacity: 0.1;
+            }
+            100% {
+                opacity: 0.8;
+            }
+        }
+
+        /* Terminal-style animation */
+        #home .terminal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.15;
+            overflow: hidden;
+            background-color: #000;
+            padding: 20px;
+            font-family: 'Roboto Mono', monospace;
+            color: #00ff41;
+            white-space: pre;
+        }
+
+        .terminal-line {
+            margin-bottom: 10px;
+            animation: terminal-type 4s steps(40, end) infinite;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #00ff41;
+        }
+
+        @keyframes terminal-type {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Rest of your existing styles... */
         #about, #projects, #blog, #contact, #web, #services {
             background: #141414;
             border-radius: 10px;
@@ -406,10 +470,6 @@
                 font-size: clamp(0.9rem, 4vw, 1.1rem);
             }
 
-            #home::before {
-                background-size: cover;
-            }
-
             .project-grid {
                 grid-template-columns: 1fr;
             }
@@ -501,6 +561,12 @@
     </header>
 
     <section id="home">
+        <!-- Matrix-style binary animation -->
+        <div class="matrix-bg" id="matrix-bg"></div>
+        
+        <!-- Terminal-style typing animation -->
+        <div class="terminal" id="terminal"></div>
+        
         <div class="content">
             <h1>Hi, I'm <span class="highlight">Carlos Mavean</span></h1>
             <p>Computer Engineering Student & Aspiring Web Developer</p>
@@ -658,6 +724,68 @@
                 }
             });
         });
+
+        // Matrix-style binary animation
+        const matrixBg = document.getElementById('matrix-bg');
+        const chars = "01";
+        const columns = Math.floor(window.innerWidth / 100);
+        
+        for (let i = 0; i < columns; i++) {
+            const column = document.createElement('div');
+            column.className = 'matrix-column';
+            column.style.setProperty('--delay', Math.random() * 5);
+            
+            const charsCount = 20 + Math.floor(Math.random() * 10);
+            for (let j = 0; j < charsCount; j++) {
+                const char = document.createElement('div');
+                char.className = 'matrix-char';
+                char.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+                char.style.setProperty('--char-delay', Math.random() * 10);
+                column.appendChild(char);
+            }
+            
+            matrixBg.appendChild(column);
+        }
+
+        // Terminal-style typing animation
+        const terminal = document.getElementById('terminal');
+        const terminalLines = [
+            "> Initializing system...",
+            "> Loading profile data...",
+            "> Connecting to database...",
+            "> Access granted: Welcome Carlos Mavean",
+            "> Current status: Developing awesome web apps",
+            "> Skills: HTML, CSS, JavaScript, PHP, MySQL",
+            "> System ready for new projects...",
+            "> ",
+            "> Getting your information"
+        ];
+        
+        let currentLine = 0;
+        
+        function typeTerminalLine() {
+            if (currentLine < terminalLines.length) {
+                const line = document.createElement('div');
+                line.className = 'terminal-line';
+                line.textContent = terminalLines[currentLine];
+                terminal.appendChild(line);
+                currentLine++;
+                
+                // Remove old lines if too many
+                if (terminal.children.length > 10) {
+                    terminal.removeChild(terminal.children[0]);
+                }
+                
+                setTimeout(typeTerminalLine, 2000);
+            } else {
+                // Restart animation
+                currentLine = 0;
+                setTimeout(typeTerminalLine, 1000);
+            }
+        }
+        
+        // Start the terminal animation
+        typeTerminalLine();
     </script>
 </body>
 </html>
