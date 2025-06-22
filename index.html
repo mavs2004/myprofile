@@ -18,6 +18,7 @@
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
         }
 
         header {
@@ -59,6 +60,7 @@
             font-weight: 400;
             font-size: clamp(0.9rem, 3vw, 1rem);
             transition: color 0.3s;
+            padding: 0.5rem 0; /* Added for better touch targets */
         }
 
         nav ul li a:hover {
@@ -168,6 +170,8 @@
             text-align: center;
             opacity: 0;
             animation: fadeInText 1s ease-in 1.5s forwards;
+            width: 90%; /* Added for better mobile display */
+            padding: 0 1rem; /* Added for better mobile display */
         }
 
         @keyframes fadeInText {
@@ -180,14 +184,17 @@
             margin-bottom: 1rem;
             text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
             font-family: 'Times New Roman', Times, serif;
+            word-wrap: break-word; /* Prevent overflow on small devices */
         }
 
         #home p {
             font-size: clamp(1rem, 4vw, 1.2rem);
             color: #cccccc;
             font-family: 'Roboto Mono', monospace;
+            margin-bottom: 1.5rem; /* Added for better spacing */
         }
-        span{
+        
+        span {
             font-family: 'Times New Roman', Times, serif;
         }
 
@@ -195,6 +202,7 @@
             color: #00aaff;
             font-family: 'Times New Roman', Times, serif;
         }
+        
         .highlight {
             color: #00aaff; /* Base blue color */
             text-shadow: 
@@ -225,12 +233,14 @@
             margin-bottom: 1.5rem;
             color: #00aaff;
             font-family: 'Times New Roman', Times, serif;
+            line-height: 1.3; /* Better line height for headings */
         }
 
-        #about p {
+        #about p, #web p, #services p {
             font-size: clamp(0.9rem, 3vw, 1.1rem);
             color: #cccccc;
             margin-bottom: 1rem;
+            line-height: 1.7; /* Improved readability */
         }
 
         .project-grid {
@@ -244,6 +254,9 @@
             padding: 1.5rem;
             border-radius: 10px;
             transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Ensure equal height cards */
         }
 
         .project-card:hover {
@@ -266,8 +279,9 @@
 
         .project-card p {
             color: #cccccc;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem; /* Increased margin */
             font-size: clamp(0.85rem, 3vw, 1rem);
+            flex-grow: 1; /* Push links to bottom */
         }
 
         .project-card a {
@@ -275,6 +289,9 @@
             text-decoration: none;
             font-weight: 600;
             font-size: clamp(0.9rem, 3vw, 1rem);
+            display: inline-block;
+            margin-top: auto; /* Push to bottom of card */
+            padding: 0.5rem 0; /* Better touch target */
         }
 
         .project-card a:hover {
@@ -296,6 +313,7 @@
         .blog-post p {
             color: #cccccc;
             font-size: clamp(0.85rem, 3vw, 1rem);
+            line-height: 1.7; /* Improved readability */
         }
 
         #contact .social-links {
@@ -312,6 +330,7 @@
             text-decoration: none;
             font-size: clamp(0.9rem, 3vw, 1.1rem);
             transition: color 0.3s;
+            padding: 0.5rem 0; /* Better touch targets */
         }
 
         #contact .social-links a:hover {
@@ -332,7 +351,33 @@
             font-size: clamp(0.8rem, 3vw, 0.9rem);
         }
 
+        /* Service List Items */
+        #services p {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #services p:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #00aaff;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Responsive Styles */
+        @media (max-width: 992px) {
+            /* Tablet landscape adjustments */
+            .project-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             nav {
                 padding: 1rem;
@@ -372,11 +417,6 @@
                 display: block;
             }
 
-            #home .content {
-                width: 90%;
-                padding: 0 1rem;
-            }
-
             #home h1 {
                 font-size: clamp(1.8rem, 7vw, 2.5rem);
             }
@@ -392,9 +432,24 @@
             .project-grid {
                 grid-template-columns: 1fr;
             }
+
+            /* Service items adjustments */
+            #services p {
+                padding-left: 1.5rem;
+                margin-bottom: 1.2rem;
+            }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 576px) {
+            /* Mobile portrait adjustments */
+            section {
+                padding: 2rem 1rem;
+            }
+
+            #about, #projects, #blog, #contact, #web, #services {
+                padding: 1.5rem;
+            }
+
             #home h1 {
                 font-size: clamp(1.5rem, 6vw, 2rem);
             }
@@ -403,17 +458,94 @@
                 font-size: clamp(0.8rem, 3.5vw, 1rem);
             }
 
-            section {
-                padding: 2rem 1rem;
-            }
-
-            #about, #projects, #blog, #contact {
-                padding: 1.5rem;
-            }
-
             .social-links {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            /* Even smaller devices */
+            @media (max-width: 400px) {
+                #home h1 {
+                    font-size: clamp(1.3rem, 6vw, 1.8rem);
+                }
+
+                #home p {
+                    font-size: clamp(0.7rem, 3vw, 0.9rem);
+                }
+
+                nav .logo {
+                    font-size: clamp(1.2rem, 5vw, 1.5rem);
+                }
+
+                .menu-toggle {
+                    width: 25px;
+                    height: 18px;
+                }
+
+                .menu-toggle span {
+                    height: 2px;
+                }
+
+                .menu-toggle.active span:nth-child(1) {
+                    transform: translateY(8px) rotate(45deg);
+                }
+
+                .menu-toggle.active span:nth-child(3) {
+                    transform: translateY(-8px) rotate(-45deg);
+                }
+            }
+
+            /* Very small height devices */
+            @media (max-height: 500px) {
+                #home {
+                    min-height: 80vh;
+                }
+
+                #home .content {
+                    top: 45%;
+                    transform: translate(-50%, -45%);
+                }
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            header, footer {
+                background: white;
+                color: black;
+            }
+
+            nav ul li a {
+                color: black;
+            }
+
+            #about, #projects, #blog, #contact, #web, #services {
+                background: white;
+                color: black;
+                border: 1px solid #ddd;
+            }
+
+            .project-card, .blog-post {
+                background: white;
+                color: black;
+                border: 1px solid #ddd;
+                break-inside: avoid; /* Prevent splitting across pages */
+            }
+
+            .highlight {
+                color: #0066cc;
+                text-shadow: none;
+            }
+
+            a::after {
+                content: " (" attr(href) ")";
+                font-size: 0.8em;
+                font-weight: normal;
             }
         }
     </style>
@@ -484,7 +616,6 @@
         <p>✅ Responsive & Mobile friendly Design- Ensuring your site looks and works perfectly on all devices. </p>
         <p>✅ Performance Optimization- Fast loading, SEO friendly websites for better user engagement.</p>
         <p>✅ Maintenance & Support- Ongoing updates, bug fixes, and enhancements to keep your site running smoothly.</p>
-
     </section>
 
     <section id="contact">
@@ -553,7 +684,7 @@
             const projectCard = document.createElement('div');
             projectCard.className = 'project-card';
             projectCard.innerHTML = `
-                <img src="${project.image}" alt="${project.title} Image">
+                <img src="${project.image}" alt="${project.title} Image" loading="lazy">
                 <h3>${project.title}</h3>
                 <p>${project.description}</p>
                 <a href="${project.link}" target="_blank">View Project</a>
@@ -579,6 +710,28 @@
                 }
             });
         });
+
+        // Improved touch targets for mobile
+        document.querySelectorAll('a, button').forEach(element => {
+            element.style.minHeight = '44px';
+            element.style.minWidth = '44px';
+            element.style.display = 'inline-flex';
+            element.style.alignItems = 'center';
+            element.style.justifyContent = 'center';
+        });
+
+        // Prevent zoom on double-tap for mobile
+        document.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        // Load images lazily
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.src = img.dataset.src;
+            });
+        }
     </script>
 </body>
 </html>
