@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* ----- RESET & GLOBAL ----- */
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
         body { background:#0a0a0a; color:#fff; line-height:1.6; overflow-x:hidden; }
         header { background:#1a1a1a; padding:0.8rem 0; position:fixed; width:100%; top:0; z-index:1000; box-shadow:0 2px 5px rgba(0,0,0,0.3); }
@@ -35,11 +34,36 @@
         .btn:hover { background:transparent; color:#00aaff; transform:translateY(-3px); box-shadow:0 5px 15px rgba(0,170,255,0.3); }
         .btn-outline { background:transparent; color:#00aaff; }
         .btn-outline:hover { background:#00aaff; color:#fff; }
-        .matrix-bg { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; opacity:0.15; overflow:hidden; font-family:'Roboto Mono',monospace; font-size:16px; color:#00ff41; display:grid; grid-template-columns:repeat(auto-fill,minmax(80px,1fr)); gap:6px; padding:20px; pointer-events:none; }
+
+        /* ----- MATRIX BACKGROUND - slightly more visible ----- */
+        .matrix-bg { 
+            position:absolute; 
+            top:0; 
+            left:0; 
+            width:100%; 
+            height:100%; 
+            z-index:1; 
+            opacity: 0.25;  /* increased from 0.15 for better visibility */
+            overflow:hidden; 
+            font-family:'Roboto Mono',monospace; 
+            font-size:16px; 
+            color:#00ff41; 
+            display:grid; 
+            grid-template-columns:repeat(auto-fill,minmax(80px,1fr)); 
+            gap:6px; 
+            padding:20px; 
+            pointer-events:none; 
+        }
         .matrix-column { display:flex; flex-direction:column; animation:matrix-fall 10s linear infinite; animation-delay:calc(var(--delay)*1s); }
         @keyframes matrix-fall { 0%{ transform:translateY(-100%); } 100%{ transform:translateY(100%); } }
-        .matrix-char { opacity:0.1; animation:matrix-flicker 0.15s linear infinite alternate; }
-        @keyframes matrix-flicker { 0%{ opacity:0.1; } 100%{ opacity:0.6; } }
+        .matrix-char { 
+            opacity: 0.2;  /* increased from 0.1 for better visibility */
+            animation:matrix-flicker 0.15s linear infinite alternate; 
+        }
+        @keyframes matrix-flicker { 
+            0%{ opacity:0.15; } 
+            100%{ opacity:0.7; }  /* increased from 0.6 for better visibility */
+        }
 
         /* ----- BOOK SLIDER (projects) ----- */
         #projects { background:#141414; border-radius:12px; padding:2rem 1.5rem; }
@@ -50,7 +74,6 @@
         .project-card h3 { font-size:clamp(1.3rem,4vw,1.7rem); margin:0.5rem 0 0.3rem; color:#fff; letter-spacing:0.5px; }
         .project-card p { color:#bbbbbb; font-size:clamp(0.9rem,2.5vw,1rem); margin:0.5rem 0 1.2rem; line-height:1.5; }
 
-        /* cover image – only first image shown as thumbnail */
         .project-cover {
             width: 100%;
             height: 200px;
@@ -181,7 +204,6 @@
         #about,#skills,#services,#testimonials,#blog,#contact { background:#141414; border-radius:12px; padding:2rem 1.5rem; margin-bottom:2rem; }
         .profile-img { width:130px; height:130px; border-radius:50%; object-fit:cover; border:3px solid #00aaff; margin-bottom:1rem; }
         
-        /* SKILLS GRID - UPDATED with new skills */
         .skills-container { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
@@ -222,7 +244,6 @@
         .back-to-top { position:fixed; bottom:20px; right:20px; width:46px; height:46px; background:#00aaff; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; opacity:0; visibility:hidden; transition:0.3s; z-index:999; }
         .back-to-top.active { opacity:1; visibility:visible; }
 
-        /* ----- RESPONSIVE ----- */
         @media(max-width:768px){
             .menu-toggle { display:flex; }
             nav ul { position:fixed; top:65px; left:-100%; width:100%; height:calc(100vh-65px); background:#1a1a1a; flex-direction:column; align-items:center; padding-top:2rem; gap:1.5rem; transition:left 0.3s; }
@@ -277,16 +298,12 @@
     </div>
 </section>
 
-<!-- SKILLS SECTION - UPDATED with new skills: Python, TypeScript, React, Node.js, PostgreSQL, Supabase, Firebase -->
 <section id="skills"><h2>My Skills</h2>
     <div class="skills-container">
-        <!-- Original skills -->
         <div class="skill"><h3><i class="fab fa-html5"></i> HTML/CSS</h3><div class="skill-bar"><div class="skill-level" style="width:95%;"></div></div></div>
         <div class="skill"><h3><i class="fab fa-js"></i> JavaScript</h3><div class="skill-bar"><div class="skill-level" style="width:85%;"></div></div></div>
         <div class="skill"><h3><i class="fab fa-php"></i> PHP</h3><div class="skill-bar"><div class="skill-level" style="width:80%;"></div></div></div>
         <div class="skill"><h3><i class="fas fa-database"></i> MySQL</h3><div class="skill-bar"><div class="skill-level" style="width:75%;"></div></div></div>
-        
-        <!-- NEW SKILLS -->
         <div class="skill"><h3><i class="fab fa-python"></i> Python</h3><div class="skill-bar"><div class="skill-level" style="width:70%;"></div></div></div>
         <div class="skill"><h3><i class="fab fa-js"></i> TypeScript</h3><div class="skill-bar"><div class="skill-level" style="width:72%;"></div></div></div>
         <div class="skill"><h3><i class="fab fa-react"></i> React</h3><div class="skill-bar"><div class="skill-level" style="width:68%;"></div></div></div>
@@ -297,7 +314,6 @@
     </div>
 </section>
 
-<!-- PROJECTS : BOOK SLIDER -->
 <section id="projects">
     <h2 style="text-align:center;">Featured Projects</h2>
     <div class="book-slider-wrapper">
@@ -310,7 +326,6 @@
     </div>
 </section>
 
-<!-- LIGHTBOX with slide navigation -->
 <div class="lightbox" id="lightbox">
     <button class="close-lb" id="closeLb">&times;</button>
     <div class="lightbox-inner">
@@ -366,7 +381,6 @@
 <a href="#home" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
 
 <script>
-    // ----- PROJECT DATA (first image = cover) -----
     const projectData = [
         { title: "Emergency Response System", desc: "Responsive ERS System with AI analysis using Typescript and Firebase.",
           images: ["image/hp.png","image/p1.png","image/p2.png","image/p3.png","image/p4.png","image/p5.png","image/r1.png","image/r2.png","image/r3.png","image/r4.png","image/r5.png"], link: "https://github.com/mavs2004/online-shop", demo: "#" },
@@ -380,7 +394,6 @@
           images: ["image/brgy.png","image/b2.png","image/b3.png","image/b4.png","image/b5.png","image/b6.png","image/b7.png","image/b8.png","image/b9.png","image/b10.png",], link: "https://barangaybagbag.wuaze.com", demo: "#" }
     ];
 
-    // ----- BOOK SLIDER -----
     const slider = document.getElementById('bookSlider');
     let currentIndex = 0;
     const total = projectData.length;
@@ -408,14 +421,12 @@
         updateSlider();
         updateIndicator();
 
-        // cover click -> open gallery
         document.querySelectorAll('.project-cover').forEach(img => {
             img.addEventListener('click', function() {
                 const idx = parseInt(this.dataset.project);
                 openGallery(idx);
             });
         });
-        // gallery button click
         document.querySelectorAll('.btn-sm.gallery').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -440,10 +451,8 @@
         if (currentIndex < total - 1) { currentIndex++; updateSlider(); updateIndicator(); }
     });
 
-    // ----- LIGHTBOX with slide navigation -----
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lightboxImg');
-    const lbCounter = document.getElementById('lbCounter');
     const lbCurrent = document.getElementById('lbCurrentIdx');
     const lbTotal = document.getElementById('lbTotal');
 
@@ -481,7 +490,6 @@
         updateLightbox();
     }
 
-    // lightbox controls
     document.getElementById('lbNext').addEventListener('click', nextImage);
     document.getElementById('lbPrev').addEventListener('click', prevImage);
     document.getElementById('closeLb').addEventListener('click', () => {
@@ -495,7 +503,6 @@
         }
     });
 
-    // keyboard for lightbox
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
         if (e.key === 'Escape') {
@@ -506,14 +513,12 @@
         if (e.key === 'ArrowLeft') prevImage(e);
     });
 
-    // keyboard for book slider
     document.addEventListener('keydown', (e) => {
         if (lightbox.classList.contains('active')) return;
         if (e.key === 'ArrowLeft' && currentIndex > 0) { currentIndex--; updateSlider(); updateIndicator(); }
         if (e.key === 'ArrowRight' && currentIndex < total - 1) { currentIndex++; updateSlider(); updateIndicator(); }
     });
 
-    // ----- MOBILE MENU, BACK TO TOP, MATRIX -----
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('nav ul');
     menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('active'); navLinks.classList.toggle('active'); });
@@ -530,7 +535,6 @@
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => { backToTop.classList.toggle('active', window.pageYOffset > 300); });
 
-    // matrix background
     const matrixBg = document.getElementById('matrix-bg');
     const chars = "01";
     function buildMatrix() {
@@ -554,7 +558,6 @@
     buildMatrix();
     window.addEventListener('resize', buildMatrix);
 
-    // init
     renderSlider();
     window.addEventListener('load', ()=>{ updateSlider(); });
 </script>
