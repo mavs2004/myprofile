@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* ----- RESET & GLOBAL ----- */
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
         body { background:#0a0a0a; color:#fff; line-height:1.6; overflow-x:hidden; }
         header { background:#1a1a1a; padding:0.8rem 0; position:fixed; width:100%; top:0; z-index:1000; box-shadow:0 2px 5px rgba(0,0,0,0.3); }
@@ -176,12 +177,30 @@
         }
         .lightbox .lb-counter span { color: #00aaff; font-weight: 500; }
 
-        /* other sections */
+        /* ----- OTHER SECTIONS ----- */
         #about,#skills,#services,#testimonials,#blog,#contact { background:#141414; border-radius:12px; padding:2rem 1.5rem; margin-bottom:2rem; }
         .profile-img { width:130px; height:130px; border-radius:50%; object-fit:cover; border:3px solid #00aaff; margin-bottom:1rem; }
-        .skills-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2rem; margin-top:1.5rem; }
-        .skill-bar { background:#333; height:10px; border-radius:5px; overflow:hidden; }
-        .skill-level { background:#00aaff; height:100%; border-radius:5px; }
+        
+        /* SKILLS GRID - UPDATED with new skills */
+        .skills-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 1.2rem; 
+            margin-top: 1.5rem; 
+        }
+        .skill { 
+            background: #1a1a1a; 
+            padding: 0.8rem 1rem; 
+            border-radius: 10px; 
+            border-left: 3px solid #00aaff; 
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .skill:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,170,255,0.15); }
+        .skill h3 { font-size: 0.95rem; font-weight: 500; color: #eee; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px; }
+        .skill h3 i { color: #00aaff; font-size: 1rem; width: 20px; }
+        .skill-bar { background:#2a2a2a; height:6px; border-radius:4px; overflow:hidden; }
+        .skill-level { background:#00aaff; height:100%; border-radius:4px; transition: width 0.6s ease; }
+
         .services-grid,.testimonial-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2rem; margin-top:1.5rem; }
         .service-card,.testimonial-card { background:#1e1e1e; padding:1.2rem; border-radius:12px; }
         .service-icon { font-size:2rem; color:#00aaff; margin-bottom:0.6rem; }
@@ -203,7 +222,7 @@
         .back-to-top { position:fixed; bottom:20px; right:20px; width:46px; height:46px; background:#00aaff; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; opacity:0; visibility:hidden; transition:0.3s; z-index:999; }
         .back-to-top.active { opacity:1; visibility:visible; }
 
-        /* responsive */
+        /* ----- RESPONSIVE ----- */
         @media(max-width:768px){
             .menu-toggle { display:flex; }
             nav ul { position:fixed; top:65px; left:-100%; width:100%; height:calc(100vh-65px); background:#1a1a1a; flex-direction:column; align-items:center; padding-top:2rem; gap:1.5rem; transition:left 0.3s; }
@@ -214,12 +233,15 @@
             .lightbox .nav-arrow { width:44px; height:44px; font-size:1.3rem; }
             .lightbox .nav-arrow.left { left:10px; }
             .lightbox .nav-arrow.right { right:10px; }
+            .skills-container { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
         }
         @media(max-width:480px){
             .project-cover { height:140px; }
             .slider-controls button { width:40px; height:40px; font-size:1.1rem; }
             .lightbox .nav-arrow { width:38px; height:38px; font-size:1.1rem; }
             .lightbox .close-lb { top:14px; right:18px; font-size:2rem; }
+            .skills-container { grid-template-columns: 1fr 1fr; gap:0.8rem; }
+            .skill h3 { font-size:0.85rem; }
         }
     </style>
 </head>
@@ -255,12 +277,23 @@
     </div>
 </section>
 
+<!-- SKILLS SECTION - UPDATED with new skills: Python, TypeScript, React, Node.js, PostgreSQL, Supabase, Firebase -->
 <section id="skills"><h2>My Skills</h2>
     <div class="skills-container">
-        <div class="skill"><h3>HTML/CSS</h3><div class="skill-bar"><div class="skill-level" style="width:95%;"></div></div></div>
-        <div class="skill"><h3>JavaScript</h3><div class="skill-bar"><div class="skill-level" style="width:85%;"></div></div></div>
-        <div class="skill"><h3>PHP</h3><div class="skill-bar"><div class="skill-level" style="width:80%;"></div></div></div>
-        <div class="skill"><h3>MySQL</h3><div class="skill-bar"><div class="skill-level" style="width:75%;"></div></div></div>
+        <!-- Original skills -->
+        <div class="skill"><h3><i class="fab fa-html5"></i> HTML/CSS</h3><div class="skill-bar"><div class="skill-level" style="width:95%;"></div></div></div>
+        <div class="skill"><h3><i class="fab fa-js"></i> JavaScript</h3><div class="skill-bar"><div class="skill-level" style="width:85%;"></div></div></div>
+        <div class="skill"><h3><i class="fab fa-php"></i> PHP</h3><div class="skill-bar"><div class="skill-level" style="width:80%;"></div></div></div>
+        <div class="skill"><h3><i class="fas fa-database"></i> MySQL</h3><div class="skill-bar"><div class="skill-level" style="width:75%;"></div></div></div>
+        
+        <!-- NEW SKILLS -->
+        <div class="skill"><h3><i class="fab fa-python"></i> Python</h3><div class="skill-bar"><div class="skill-level" style="width:70%;"></div></div></div>
+        <div class="skill"><h3><i class="fab fa-js"></i> TypeScript</h3><div class="skill-bar"><div class="skill-level" style="width:72%;"></div></div></div>
+        <div class="skill"><h3><i class="fab fa-react"></i> React</h3><div class="skill-bar"><div class="skill-level" style="width:68%;"></div></div></div>
+        <div class="skill"><h3><i class="fab fa-node-js"></i> Node.js</h3><div class="skill-bar"><div class="skill-level" style="width:65%;"></div></div></div>
+        <div class="skill"><h3><i class="fas fa-database"></i> PostgreSQL</h3><div class="skill-bar"><div class="skill-level" style="width:60%;"></div></div></div>
+        <div class="skill"><h3><i class="fas fa-cloud"></i> Supabase</h3><div class="skill-bar"><div class="skill-level" style="width:55%;"></div></div></div>
+        <div class="skill"><h3><i class="fas fa-fire"></i> Firebase</h3><div class="skill-bar"><div class="skill-level" style="width:58%;"></div></div></div>
     </div>
 </section>
 
@@ -271,7 +304,7 @@
         <div class="book-slider" id="bookSlider"></div>
         <div class="slider-controls">
             <button id="prevPage"><i class="fas fa-chevron-left"></i></button>
-            <span class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">6</span></span>
+            <span class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">5</span></span>
             <button id="nextPage"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
@@ -345,7 +378,6 @@
           images: ["image/gym.png","image/g1.png","image/g2.png","image/g3.png","image/g4.png","image/g5.png","image/g6.png","image/g7.png","image/g8.png","image/g9.png","image/g10.png","image/g11.png","image/g12.png"], link: "https://gymniarmando.wuaze.com", demo: "#" },
         { title: "Barangay Website", desc: "A responsive barangay website with payment processing and certificate generation features for local government.",
           images: ["image/brgy.png","image/b2.png","image/b3.png","image/b4.png","image/b5.png","image/b6.png","image/b7.png","image/b8.png","image/b9.png","image/b10.png",], link: "https://barangaybagbag.wuaze.com", demo: "#" }
-        
     ];
 
     // ----- BOOK SLIDER -----
@@ -415,7 +447,7 @@
     const lbCurrent = document.getElementById('lbCurrentIdx');
     const lbTotal = document.getElementById('lbTotal');
 
-    let currentGallery = [];   // array of image urls
+    let currentGallery = [];
     let currentGalleryIdx = 0;
 
     function openGallery(projectIdx) {
