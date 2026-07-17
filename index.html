@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Carlos Mavean · sliding book portfolio</title>
+    <title>Carlos Mavean · WEB DEVELOPMENT/title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -48,11 +48,23 @@
         .project-card { background:#1e1e1e; border-radius:16px; padding:1.8rem 1.5rem 2rem; width:100%; max-width:540px; margin:0 auto; box-shadow:0 8px 24px rgba(0,0,0,0.6); transition:transform 0.2s; }
         .project-card h3 { font-size:clamp(1.3rem,4vw,1.7rem); margin:0.5rem 0 0.3rem; color:#fff; letter-spacing:0.5px; }
         .project-card p { color:#bbbbbb; font-size:clamp(0.9rem,2.5vw,1rem); margin:0.5rem 0 1.2rem; line-height:1.5; }
-        .project-card .image-strip { display:flex; gap:10px; overflow-x:auto; padding:8px 4px 16px; scroll-snap-type:x mandatory; scrollbar-width:thin; scrollbar-color:#00aaff #333; }
-        .project-card .image-strip::-webkit-scrollbar { height:6px; }
-        .project-card .image-strip::-webkit-scrollbar-thumb { background:#00aaff; border-radius:8px; }
-        .project-card .image-strip img { flex:0 0 auto; width:140px; height:100px; object-fit:cover; border-radius:10px; scroll-snap-align:start; border:1px solid #333; transition:0.2s; cursor:pointer; }
-        .project-card .image-strip img:hover { border-color:#00aaff; transform:scale(1.02); }
+
+        /* cover image – only first image shown as thumbnail */
+        .project-cover {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+        .project-cover:hover {
+            transform: scale(1.01);
+            border-color: #00aaff;
+        }
+
         .project-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:6px; }
         .project-actions .btn-sm { background:#2a2a2a; color:#eee; padding:0.5rem 1.2rem; border-radius:30px; font-size:0.85rem; font-weight:500; border:1px solid #444; transition:0.25s; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
         .project-actions .btn-sm i { font-size:0.9rem; }
@@ -65,14 +77,106 @@
         .slider-controls .page-indicator { color:#aaa; font-size:0.95rem; font-weight:400; letter-spacing:1px; }
         .slider-controls .page-indicator span { color:#00aaff; font-weight:600; }
 
-        /* lightbox overlay for gallery */
-        .lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.92); z-index:2000; justify-content:center; align-items:center; padding:1rem; backdrop-filter:blur(6px); }
-        .lightbox.active { display:flex; }
-        .lightbox img { max-width:90vw; max-height:85vh; border-radius:14px; box-shadow:0 0 40px rgba(0,170,255,0.3); object-fit:contain; }
-        .lightbox .close-lb { position:absolute; top:20px; right:30px; font-size:2.8rem; color:#fff; cursor:pointer; opacity:0.7; transition:0.2s; background:transparent; border:none; }
-        .lightbox .close-lb:hover { opacity:1; transform:rotate(90deg); }
+        /* ----- LIGHTBOX MODERN SLIDER ----- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.94);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .lightbox.active { display: flex; }
 
-        /* other sections (compact) */
+        .lightbox-inner {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 0 50px rgba(0, 170, 255, 0.25);
+            object-fit: contain;
+            transition: opacity 0.3s ease;
+            user-select: none;
+        }
+
+        .lightbox .close-lb {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            font-size: 2.6rem;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: 0.25s;
+            background: transparent;
+            border: none;
+            z-index: 10;
+            line-height: 1;
+        }
+        .lightbox .close-lb:hover { opacity: 1; transform: rotate(90deg); }
+
+        .lightbox .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.15);
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+        .lightbox .nav-arrow:hover {
+            background: #00aaff;
+            border-color: #00aaff;
+            color: #0a0a0a;
+            transform: translateY(-50%) scale(1.08);
+        }
+        .lightbox .nav-arrow.left { left: 18px; }
+        .lightbox .nav-arrow.right { right: 18px; }
+
+        .lightbox .lb-counter {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            background: rgba(0,0,0,0.4);
+            padding: 6px 18px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.08);
+            letter-spacing: 0.5px;
+            font-weight: 300;
+        }
+        .lightbox .lb-counter span { color: #00aaff; font-weight: 500; }
+
+        /* other sections */
         #about,#skills,#services,#testimonials,#blog,#contact { background:#141414; border-radius:12px; padding:2rem 1.5rem; margin-bottom:2rem; }
         .profile-img { width:130px; height:130px; border-radius:50%; object-fit:cover; border:3px solid #00aaff; margin-bottom:1rem; }
         .skills-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.2rem; margin-top:1.5rem; }
@@ -98,17 +202,24 @@
         footer { text-align:center; padding:1.5rem; color:#aaa; font-size:0.8rem; }
         .back-to-top { position:fixed; bottom:20px; right:20px; width:46px; height:46px; background:#00aaff; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; text-decoration:none; opacity:0; visibility:hidden; transition:0.3s; z-index:999; }
         .back-to-top.active { opacity:1; visibility:visible; }
+
+        /* responsive */
         @media(max-width:768px){
             .menu-toggle { display:flex; }
             nav ul { position:fixed; top:65px; left:-100%; width:100%; height:calc(100vh-65px); background:#1a1a1a; flex-direction:column; align-items:center; padding-top:2rem; gap:1.5rem; transition:left 0.3s; }
             nav ul.active { left:0; }
             nav ul li a { font-size:1.1rem; }
             .book-page { padding:0; }
-            .project-card .image-strip img { width:110px; height:80px; }
+            .project-cover { height:160px; }
+            .lightbox .nav-arrow { width:44px; height:44px; font-size:1.3rem; }
+            .lightbox .nav-arrow.left { left:10px; }
+            .lightbox .nav-arrow.right { right:10px; }
         }
         @media(max-width:480px){
-            .project-card .image-strip img { width:90px; height:70px; }
+            .project-cover { height:140px; }
             .slider-controls button { width:40px; height:40px; font-size:1.1rem; }
+            .lightbox .nav-arrow { width:38px; height:38px; font-size:1.1rem; }
+            .lightbox .close-lb { top:14px; right:18px; font-size:2rem; }
         }
     </style>
 </head>
@@ -153,7 +264,7 @@
     </div>
 </section>
 
-<!--  PROJECTS : BOOK SLIDER  -->
+<!-- PROJECTS : BOOK SLIDER -->
 <section id="projects">
     <h2 style="text-align:center;">Featured Projects</h2>
     <div class="book-slider-wrapper">
@@ -166,10 +277,15 @@
     </div>
 </section>
 
-<!-- lightbox -->
+<!-- LIGHTBOX with slide navigation -->
 <div class="lightbox" id="lightbox">
     <button class="close-lb" id="closeLb">&times;</button>
-    <img id="lightboxImg" src="" alt="gallery">
+    <div class="lightbox-inner">
+        <button class="nav-arrow left" id="lbPrev"><i class="fas fa-chevron-left"></i></button>
+        <img id="lightboxImg" src="" alt="gallery">
+        <button class="nav-arrow right" id="lbNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="lb-counter" id="lbCounter"><span id="lbCurrentIdx">1</span> / <span id="lbTotal">0</span></div>
 </div>
 
 <section id="services"><h2>My Services</h2><p style="color:#bbb;">Budget-friendly solutions tailored to your business needs:</p>
@@ -217,7 +333,7 @@
 <a href="#home" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
 
 <script>
-    // ----- PROJECT DATA (with multiple images per project) -----
+    // ----- PROJECT DATA (first image = cover) -----
     const projectData = [
         { title: "Emergency Response System", desc: "Responsive ERS System with AI analysis using Typescript and Firebase.",
           images: ["image/hp.png","image/p1.jpg","image/p2.jpg","image/p3.jpg","image/p4.jpg","image/p5.jpg","image/r1.jpg","image/r2.jpg","image/r3.jpg","image/r4.jpg","image/r5.jpg"], link: "https://github.com/mavs2004/online-shop", demo: "#" },
@@ -233,27 +349,26 @@
           images: ["image/qwe.png","image/inv2.jpg","image/inv3.jpg"], link: "#", demo: "#" }
     ];
 
+    // ----- BOOK SLIDER -----
     const slider = document.getElementById('bookSlider');
     let currentIndex = 0;
-    let total = projectData.length;
+    const total = projectData.length;
 
-    // build pages
     function renderSlider() {
         slider.innerHTML = '';
         projectData.forEach((proj, idx) => {
             const page = document.createElement('div');
             page.className = 'book-page';
-            // images strip
-            let imagesHtml = proj.images.map(img => `<img src="${img}" alt="${proj.title}" loading="lazy" data-gallery="${idx}">`).join('');
+            const coverSrc = proj.images.length ? proj.images[0] : '';
             page.innerHTML = `
                 <div class="project-card">
+                    <img src="${coverSrc}" alt="${proj.title} cover" class="project-cover" data-project="${idx}">
                     <h3>${proj.title}</h3>
                     <p>${proj.desc}</p>
-                    <div class="image-strip">${imagesHtml}</div>
                     <div class="project-actions">
                         <a href="${proj.link}" target="_blank" class="btn-sm"><i class="fas fa-code"></i> Code</a>
                         ${proj.demo !== '#' ? `<a href="${proj.demo}" target="_blank" class="btn-sm"><i class="fas fa-external-link-alt"></i> Demo</a>` : ''}
-                        <button class="btn-sm gallery" data-gallery="${idx}"><i class="fas fa-images"></i> Gallery</button>
+                        <button class="btn-sm gallery" data-project="${idx}"><i class="fas fa-images"></i> Gallery</button>
                     </div>
                 </div>
             `;
@@ -261,20 +376,20 @@
         });
         updateSlider();
         updateIndicator();
-        // attach gallery listeners
-        document.querySelectorAll('.btn-sm.gallery').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const idx = parseInt(this.dataset.gallery);
+
+        // cover click -> open gallery
+        document.querySelectorAll('.project-cover').forEach(img => {
+            img.addEventListener('click', function() {
+                const idx = parseInt(this.dataset.project);
                 openGallery(idx);
             });
         });
-        // click on strip images -> open lightbox with that image
-        document.querySelectorAll('.image-strip img').forEach(img => {
-            img.addEventListener('click', function() {
-                const src = this.getAttribute('src');
-                document.getElementById('lightboxImg').src = src;
-                document.getElementById('lightbox').classList.add('active');
+        // gallery button click
+        document.querySelectorAll('.btn-sm.gallery').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const idx = parseInt(this.dataset.project);
+                openGallery(idx);
             });
         });
     }
@@ -287,7 +402,6 @@
         document.getElementById('totalPages').textContent = total;
     }
 
-    // navigation
     document.getElementById('prevPage').addEventListener('click', () => {
         if (currentIndex > 0) { currentIndex--; updateSlider(); updateIndicator(); }
     });
@@ -295,31 +409,80 @@
         if (currentIndex < total - 1) { currentIndex++; updateSlider(); updateIndicator(); }
     });
 
-    // open gallery for specific project (show first image)
-    function openGallery(idx) {
-        const proj = projectData[idx];
-        if (proj && proj.images.length) {
-            document.getElementById('lightboxImg').src = proj.images[0];
-            document.getElementById('lightbox').classList.add('active');
-        }
+    // ----- LIGHTBOX with slide navigation -----
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbCounter = document.getElementById('lbCounter');
+    const lbCurrent = document.getElementById('lbCurrentIdx');
+    const lbTotal = document.getElementById('lbTotal');
+
+    let currentGallery = [];   // array of image urls
+    let currentGalleryIdx = 0;
+
+    function openGallery(projectIdx) {
+        const proj = projectData[projectIdx];
+        if (!proj || !proj.images.length) return;
+        currentGallery = proj.images;
+        currentGalleryIdx = 0;
+        updateLightbox();
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
 
-    // lightbox close
+    function updateLightbox() {
+        if (currentGallery.length === 0) return;
+        lbImg.src = currentGallery[currentGalleryIdx];
+        lbCurrent.textContent = currentGalleryIdx + 1;
+        lbTotal.textContent = currentGallery.length;
+    }
+
+    function nextImage(e) {
+        if (e) e.stopPropagation();
+        if (currentGallery.length === 0) return;
+        currentGalleryIdx = (currentGalleryIdx + 1) % currentGallery.length;
+        updateLightbox();
+    }
+
+    function prevImage(e) {
+        if (e) e.stopPropagation();
+        if (currentGallery.length === 0) return;
+        currentGalleryIdx = (currentGalleryIdx - 1 + currentGallery.length) % currentGallery.length;
+        updateLightbox();
+    }
+
+    // lightbox controls
+    document.getElementById('lbNext').addEventListener('click', nextImage);
+    document.getElementById('lbPrev').addEventListener('click', prevImage);
     document.getElementById('closeLb').addEventListener('click', () => {
-        document.getElementById('lightbox').classList.remove('active');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
     });
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-        if (e.target === this) this.classList.remove('active');
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === this) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     });
 
-    // keyboard navigation
+    // keyboard for lightbox
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('active');
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        if (e.key === 'ArrowRight') nextImage(e);
+        if (e.key === 'ArrowLeft') prevImage(e);
+    });
+
+    // keyboard for book slider
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('active')) return;
         if (e.key === 'ArrowLeft' && currentIndex > 0) { currentIndex--; updateSlider(); updateIndicator(); }
         if (e.key === 'ArrowRight' && currentIndex < total - 1) { currentIndex++; updateSlider(); updateIndicator(); }
     });
 
-    // mobile menu, back to top, matrix (keep as original)
+    // ----- MOBILE MENU, BACK TO TOP, MATRIX -----
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('nav ul');
     menuToggle.addEventListener('click', () => { menuToggle.classList.toggle('active'); navLinks.classList.toggle('active'); });
@@ -336,7 +499,7 @@
     const backToTop = document.getElementById('backToTop');
     window.addEventListener('scroll', () => { backToTop.classList.toggle('active', window.pageYOffset > 300); });
 
-    // matrix bg
+    // matrix background
     const matrixBg = document.getElementById('matrix-bg');
     const chars = "01";
     function buildMatrix() {
@@ -362,11 +525,7 @@
 
     // init
     renderSlider();
-    // handle initial load for mobile
-    window.addEventListener('load', ()=>{
-        // ensure slider position
-        updateSlider();
-    });
+    window.addEventListener('load', ()=>{ updateSlider(); });
 </script>
 </body>
 </html>
